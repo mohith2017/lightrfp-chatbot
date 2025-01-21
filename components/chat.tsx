@@ -65,7 +65,7 @@ export function Chat({
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background">
         <div className="flex justify-center items-center h-screen">
-          <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-48 h-32" />
+          <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-96 h-32" />
         </div>
 
         <div className="fixed bottom-4 right-4">
@@ -73,8 +73,8 @@ export function Chat({
             <AccordionItem value="open-chat">
               <AccordionTrigger>
                 <Avatar>
-                  <AvatarImage src="/images/lightrfp-logo.png" alt="@lightrfp" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage src="/images/lightrfp-logo.png" alt="@lightrfp" className="object-cover"/>
+                  {/* <AvatarFallback>CN</AvatarFallback> */}
                 </Avatar>
               </AccordionTrigger>
               <AccordionContent>
