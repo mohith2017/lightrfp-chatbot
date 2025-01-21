@@ -67,7 +67,7 @@ export function Chat({
           selectedVisibilityType={selectedVisibilityType}
           isReadonly={isReadonly}
         /> */}
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center h-screen">
           <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-32 h-32" />
         </div>
 
