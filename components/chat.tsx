@@ -77,7 +77,7 @@ export function Chat({
                   {/* <AvatarFallback>CN</AvatarFallback> */}
                 </Avatar>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="max-h-96 overflow-y-auto">
                 <Messages
                   chatId={id}
                   isLoading={isLoading}
