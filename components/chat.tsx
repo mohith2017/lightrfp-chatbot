@@ -16,6 +16,7 @@ import { VisibilityType } from './visibility-selector';
 import { useBlockSelector } from '@/hooks/use-block';
 
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './ui/accordion';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 export function Chat({
   id,
@@ -64,13 +65,18 @@ export function Chat({
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background">
         <div className="flex justify-center items-center h-screen">
-          <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-32 h-32" />
+          <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-48 h-32" />
         </div>
 
         <div className="fixed bottom-4 right-4">
-          <Accordion type="single">
+          <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="open-chat">
-              <AccordionTrigger>Open Chat</AccordionTrigger>
+              <AccordionTrigger>
+                <Avatar>
+                  <AvatarImage src="/images/lightrfp-logo.png" alt="@lightrfp" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </AccordionTrigger>
               <AccordionContent>
                 <Messages
                   chatId={id}
