@@ -68,16 +68,16 @@ export function Chat({
           <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-96 h-32" />
         </div>
 
-        <div className="fixed bottom-4 right-4">
-          <Accordion type="single" collapsible className="w-full">
+        {/* <div className="fixed bottom-4 right-4"> */}
+          {/* <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="open-chat">
               <AccordionTrigger>
                 <Avatar>
                   <AvatarImage src="https://github.com/shadcn.png" alt="@lightrfp" className="bg-white"/>
-                  {/* <AvatarFallback>CN</AvatarFallback> */}
+                  <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </AccordionTrigger>
-              <AccordionContent className="max-h-96 overflow-y-auto">
+              <AccordionContent className="max-h-96 overflow-y-auto"> */}
                 <Messages
                   chatId={id}
                   isLoading={isLoading}
@@ -106,10 +106,10 @@ export function Chat({
                     />
                   )}
                 </form>
-              </AccordionContent>
+              {/* </AccordionContent>
             </AccordionItem>
-          </Accordion>
-        </div>
+          </Accordion> */}
+        {/* </div> */}
 
         <Block
           chatId={id}
