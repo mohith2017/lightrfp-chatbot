@@ -22,8 +22,8 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
     },
     {
       title: 'Write a NYC quote',
-      label: `for a plumbing job conducted over the period of 2 days`,
-      action: `Write a NYC quote for for a plumbing job conducted over the period of 2 days `,
+      label: `for a plumbing job conducted over 2 days`,
+      action: `Write a NYC quote for for a plumbing job over 2 days `,
     },
     {
       title: 'Help me generate a PDF receipt',

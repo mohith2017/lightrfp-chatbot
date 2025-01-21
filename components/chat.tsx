@@ -15,6 +15,8 @@ import { Messages } from './messages';
 import { VisibilityType } from './visibility-selector';
 import { useBlockSelector } from '@/hooks/use-block';
 
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './ui/accordion';
+
 export function Chat({
   id,
   initialMessages,
@@ -61,62 +63,65 @@ export function Chat({
   return (
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background">
-        {/* <ChatHeader
-          chatId={id}
-          selectedModelId={selectedModelId}
-          selectedVisibilityType={selectedVisibilityType}
-          isReadonly={isReadonly}
-        /> */}
         <div className="flex justify-center items-center h-screen">
           <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-32 h-32" />
         </div>
 
-        <Messages
+        <div className="fixed bottom-4 right-4">
+          <Accordion type="single">
+            <AccordionItem value="open-chat">
+              <AccordionTrigger>Open Chat</AccordionTrigger>
+              <AccordionContent>
+                <Messages
+                  chatId={id}
+                  isLoading={isLoading}
+                  votes={votes}
+                  messages={messages}
+                  setMessages={setMessages}
+                  reload={reload}
+                  isReadonly={isReadonly}
+                  isBlockVisible={isBlockVisible}
+                />
+
+                <form className="flex mx-auto px-4 bg-background pb-4 md:pb-6 gap-2 w-full md:max-w-3xl">
+                  {!isReadonly && (
+                    <MultimodalInput
+                      chatId={id}
+                      input={input}
+                      setInput={setInput}
+                      handleSubmit={handleSubmit}
+                      isLoading={isLoading}
+                      stop={stop}
+                      attachments={attachments}
+                      setAttachments={setAttachments}
+                      messages={messages}
+                      setMessages={setMessages}
+                      append={append}
+                    />
+                  )}
+                </form>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+
+        <Block
           chatId={id}
+          input={input}
+          setInput={setInput}
+          handleSubmit={handleSubmit}
           isLoading={isLoading}
-          votes={votes}
+          stop={stop}
+          attachments={attachments}
+          setAttachments={setAttachments}
+          append={append}
           messages={messages}
           setMessages={setMessages}
           reload={reload}
+          votes={votes}
           isReadonly={isReadonly}
-          isBlockVisible={isBlockVisible}
         />
-
-        <form className="flex mx-auto px-4 bg-background pb-4 md:pb-6 gap-2 w-full md:max-w-3xl">
-          {!isReadonly && (
-            <MultimodalInput
-              chatId={id}
-              input={input}
-              setInput={setInput}
-              handleSubmit={handleSubmit}
-              isLoading={isLoading}
-              stop={stop}
-              attachments={attachments}
-              setAttachments={setAttachments}
-              messages={messages}
-              setMessages={setMessages}
-              append={append}
-            />
-          )}
-        </form>
       </div>
-
-      <Block
-        chatId={id}
-        input={input}
-        setInput={setInput}
-        handleSubmit={handleSubmit}
-        isLoading={isLoading}
-        stop={stop}
-        attachments={attachments}
-        setAttachments={setAttachments}
-        append={append}
-        messages={messages}
-        setMessages={setMessages}
-        reload={reload}
-        votes={votes}
-        isReadonly={isReadonly}
-      />
     </>
   );
 }
