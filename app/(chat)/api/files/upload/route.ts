@@ -11,17 +11,17 @@ const FileSchema = z.object({
     .refine((file) => file.size <= 5 * 1024 * 1024, {
       message: 'File size should be less than 5MB',
     })
-    .refine((file) => [
-      'application/msword', // .doc
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+    .refine((file) => ['image/jpeg', 'image/png',
+      'application/doc', // .doc
+      'application/docx', // .docx
       'application/pdf', // .pdf
       'text/plain', // .txt
       'application/rtf', // .rtf
-      'application/vnd.oasis.opendocument.text', // .odt
-      'application/vnd.ms-powerpoint', // .ppt
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
-      'application/vnd.ms-excel', // .xls
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+      'application/odt', // .odt
+      'application/ppt', // .ppt
+      'application/pptx', // .pptx
+      'application/xls', // .xls
+      'application/xlsx', // .xlsx
       'text/html', // .html, .htm
       'text/markdown', // .md
     ].includes(file.type), {
