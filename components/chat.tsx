@@ -63,7 +63,7 @@ export function Chat({
 
   return (
     <>
-        <div className="flex justify-start items-start">
+        <div className="flex flex-col items-center">
           <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-96 h-32" />
         </div>
       <div className="flex flex-col min-w-0 h-dvh bg-background">
