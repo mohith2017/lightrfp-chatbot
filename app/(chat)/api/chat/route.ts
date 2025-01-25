@@ -40,7 +40,8 @@ type AllowedTools =
   | 'createDocument'
   | 'updateDocument'
   | 'requestSuggestions'
-  | 'getWeather';
+  | 'getWeather'
+  | 'uploadFile';
 
 const blocksTools: AllowedTools[] = [
   'createDocument',
@@ -437,6 +438,29 @@ export async function POST(request: Request) {
                 kind: document.kind,
                 message: 'Suggestions have been added to the document',
               };
+            },
+          },
+          uploadFile: {
+            description: 'Upload a file and return its content.',
+            parameters: z.object({
+              file: z.instanceof(File).describe('The file to upload'),
+            }),
+            execute: async ({ file }) => {
+              const reader = new FileReader();
+              reader.readAsText(file);
+              return new Promise((resolve, reject) => {
+                reader.onload = () => {
+                  const content = reader.result as string;
+                  dataStream.writeData({
+                    type: 'file-content',
+                    content,
+                  });
+                  resolve({ content });
+                };
+                reader.onerror = (error) => {
+                  reject(error);
+                };
+              });
             },
           },
         },
