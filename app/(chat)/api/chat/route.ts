@@ -40,8 +40,7 @@ type AllowedTools =
   | 'createDocument'
   | 'updateDocument'
   | 'requestSuggestions'
-  | 'getWeather'
-  | 'uploadFile';
+  | 'getWeather';
 
 const blocksTools: AllowedTools[] = [
   'createDocument',
@@ -54,6 +53,8 @@ const weatherTools: AllowedTools[] = ['getWeather'];
 const allTools: AllowedTools[] = [...blocksTools, ...weatherTools];
 
 export async function POST(request: Request) {
+  console.log('POST request received');
+
   const {
     id,
     messages,
@@ -61,33 +62,44 @@ export async function POST(request: Request) {
   }: { id: string; messages: Array<Message>; modelId: string } =
     await request.json();
 
+  console.log('Parsed request data:', { id, messages, modelId });
+
   const session = await auth();
+  console.log('Session:', session);
 
   if (!session || !session.user || !session.user.id) {
+    console.log('Unauthorized access attempt');
     return new Response('Unauthorized', { status: 401 });
   }
 
   const model = models.find((model) => model.id === modelId);
+  console.log('Model found:', model);
 
   if (!model) {
+    console.log('Model not found');
     return new Response('Model not found', { status: 404 });
   }
 
   const coreMessages = convertToCoreMessages(messages);
   const userMessage = getMostRecentUserMessage(coreMessages);
+  console.log('Core messages and user message:', { coreMessages, userMessage });
 
   if (!userMessage) {
+    console.log('No user message found');
     return new Response('No user message found', { status: 400 });
   }
 
   const chat = await getChatById({ id });
+  console.log('Chat retrieved:', chat);
 
   if (!chat) {
     const title = await generateTitleFromUserMessage({ message: userMessage });
+    console.log('Saving new chat with title:', title);
     await saveChat({ id, userId: session.user.id, title });
   }
 
   const userMessageId = generateUUID();
+  console.log('Generated user message ID:', userMessageId);
 
   await saveMessages({
     messages: [
@@ -440,29 +452,6 @@ export async function POST(request: Request) {
               };
             },
           },
-          uploadFile: {
-            description: 'Upload a file and return its content.',
-            parameters: z.object({
-              file: z.instanceof(File).describe('The file to upload'),
-            }),
-            execute: async ({ file }) => {
-              const reader = new FileReader();
-              reader.readAsText(file);
-              return new Promise((resolve, reject) => {
-                reader.onload = () => {
-                  const content = reader.result as string;
-                  dataStream.writeData({
-                    type: 'file-content',
-                    content,
-                  });
-                  resolve({ content });
-                };
-                reader.onerror = (error) => {
-                  reject(error);
-                };
-              });
-            },
-          },
         },
         onFinish: async ({ response }) => {
           if (session.user?.id) {
@@ -508,30 +497,40 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  console.log('DELETE request received');
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');
 
+  console.log('Chat ID to delete:', id);
+
   if (!id) {
+    console.log('Chat ID not found');
     return new Response('Not Found', { status: 404 });
   }
 
   const session = await auth();
+  console.log('Session:', session);
 
   if (!session || !session.user) {
+    console.log('Unauthorized access attempt');
     return new Response('Unauthorized', { status: 401 });
   }
 
   try {
     const chat = await getChatById({ id });
+    console.log('Chat retrieved for deletion:', chat);
 
     if (chat.userId !== session.user.id) {
+      console.log('Unauthorized deletion attempt');
       return new Response('Unauthorized', { status: 401 });
     }
 
     await deleteChatById({ id });
+    console.log('Chat deleted successfully');
 
     return new Response('Chat deleted', { status: 200 });
   } catch (error) {
+    console.error('Error during DELETE operation:', error);
     return new Response('An error occurred while processing your request', {
       status: 500,
     });
