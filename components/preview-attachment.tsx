@@ -1,6 +1,6 @@
 import type { Attachment } from 'ai';
 
-import { LoaderIcon } from './icons';
+import { FileIcon, LoaderIcon } from './icons';
 
 export const PreviewAttachment = ({
   attachment,
@@ -24,6 +24,68 @@ export const PreviewAttachment = ({
               alt={name ?? 'An image attachment'}
               className="rounded-md size-full object-cover"
             />
+          ) : contentType === 'application/pdf' ? (
+            <iframe
+              key={url}
+              src={url}
+              title={name ?? 'PDF attachment'}
+              className="w-full h-full"
+            />
+          ) : contentType === 'application/msword' || contentType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ? (
+            <a
+              href={url}
+              download
+              className="w-full h-full flex items-center justify-center"
+            >
+              <FileIcon />
+              <span>Download</span>
+            </a>
+          ) : contentType === 'text/plain' || contentType === 'application/rtf' || contentType === 'application/vnd.oasis.opendocument.text' ? (
+            <a
+              href={url}
+              download
+              className="w-full h-full flex items-center justify-center"
+            >
+              <FileIcon />
+              <span>Download</span>
+            </a>
+          ) : contentType === 'application/vnd.ms-powerpoint' || contentType === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' ? (
+            <a
+              href={url}
+              download
+              className="w-full h-full flex items-center justify-center"
+            >
+              <FileIcon />
+              <span>Download</span>
+            </a>
+          ) : contentType === 'application/vnd.ms-excel' || contentType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ? (
+            <a
+              href={url}
+              download
+              className="w-full h-full flex items-center justify-center"
+            >
+              <FileIcon />
+              <span>Download</span>
+            </a>
+          ) : contentType === 'text/html' || contentType === 'text/markdown' ? (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full h-full flex items-center justify-center"
+            >
+              <FileIcon />
+              <span>View</span>
+            </a>
+          ) : contentType === 'application/zip' || contentType === 'application/x-rar-compressed' || contentType === 'application/x-tar' || contentType === 'application/x-7z-compressed' ? (
+            <a
+              href={url}
+              download
+              className="w-full h-full flex items-center justify-center"
+            >
+              <FileIcon />
+              <span>Download</span>
+            </a>
           ) : (
             <div className="" />
           )
