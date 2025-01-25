@@ -64,9 +64,9 @@ export function Chat({
   return (
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-background">
-        <div className="flex justify-center items-center h-screen">
+        {/* <div className="flex justify-center items-center h-screen">
           <img src="/images/lightrfp-logo.png" alt="Chat Logo" className="w-96 h-32" />
-        </div>
+        </div> */}
 
         {/* <div className="fixed bottom-4 right-4"> */}
           {/* <Accordion type="single" collapsible className="w-full">
