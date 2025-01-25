@@ -109,7 +109,7 @@ export function Chat({
               {/* </AccordionContent>
             </AccordionItem>
           </Accordion> */}
-        {/* </div> */}
+        </div>
 
         <Block
           chatId={id}
@@ -127,7 +127,6 @@ export function Chat({
           votes={votes}
           isReadonly={isReadonly}
         />
-      </div>
     </>
   );
 }
