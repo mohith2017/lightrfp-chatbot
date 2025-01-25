@@ -463,6 +463,8 @@ export async function POST(request: Request) {
               const responseMessagesWithoutIncompleteToolCalls =
                 sanitizeResponseMessages(response.messages);
 
+              console.log(response.messages)
+
               await saveMessages({
                 messages: responseMessagesWithoutIncompleteToolCalls.map(
                   (message) => {

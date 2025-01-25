@@ -22,7 +22,15 @@ export async function GET(request: Request) {
 
   const documents = await getDocumentsById({ id });
 
+  // Debug statement to check if documents are retrieved
+  console.log('Documents retrieved:', documents);
+
   const [document] = documents;
+
+  // Debug statement to check if the content is set for PDFs
+  if (document && document.kind === 'text') {
+    console.log('PDF content:', document.content);
+  }
 
   if (!document) {
     return new Response('Not Found', { status: 404 });
