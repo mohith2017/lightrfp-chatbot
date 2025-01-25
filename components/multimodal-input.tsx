@@ -208,6 +208,7 @@ function PureMultimodalInput({
         multiple
         onChange={handleFileChange}
         tabIndex={-1}
+        accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png, text/plain, application/zip, application/x-rar-compressed, application/x-tar, application/x-7z-compressed"
       />
 
       {(attachments.length > 0 || uploadQueue.length > 0) && (
