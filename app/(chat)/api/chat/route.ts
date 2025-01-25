@@ -128,6 +128,7 @@ export async function POST(request: Request) {
               longitude: z.number(),
             }),
             execute: async ({ latitude, longitude }) => {
+              console.log('Tool: getWeather called with:', { latitude, longitude });
               const response = await fetch(
                 `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m&daily=sunrise,sunset&timezone=auto`,
               );
@@ -144,6 +145,7 @@ export async function POST(request: Request) {
               kind: z.enum(['text', 'code', 'image']),
             }),
             execute: async ({ title, kind }) => {
+              console.log('Tool: createDocument called with:', { title, kind });
               const id = generateUUID();
               let draftText = '';
 
@@ -264,6 +266,7 @@ export async function POST(request: Request) {
                 .describe('The description of changes that need to be made'),
             }),
             execute: async ({ id, description }) => {
+              console.log('Tool: updateDocument called with:', { id, description });
               const document = await getDocumentById({ id });
 
               if (!document) {
@@ -382,6 +385,7 @@ export async function POST(request: Request) {
                 .describe('The ID of the document to request edits'),
             }),
             execute: async ({ documentId }) => {
+              console.log('Tool: requestSuggestions called with:', { documentId });
               const document = await getDocumentById({ id: documentId });
 
               if (!document || !document.content) {
